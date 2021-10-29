@@ -26,3 +26,6 @@ class Compra(models.Model):
     cliente = ForeignKey(Cliente, on_delete=models.PROTECT)
     produto = ForeignKey(Produto, on_delete=models.PROTECT)
 
+    def __str__(self):
+        return self.descricao
+
