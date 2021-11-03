@@ -10,9 +10,9 @@ SEXO = [
 
 class Cliente(models.Model):
     nome = models.CharField(max_length=50)
-    cpf = models.CharField(max_length=11, unique=True)
-    data_nascimento = models.DateField()
-    celular = models.CharField(max_length=16)
+    cpf = models.CharField(max_length=11, unique=True, help_text='somente numeros')
+    data_nascimento = models.DateField(help_text='ex: 12/03/1998')
+    celular = models.CharField(max_length=16, help_text='ex: (83) 98556-2389')
     email = models.EmailField(verbose_name='E-mail', default='')
     sexo = models.CharField(max_length=6, choices=SEXO, default='M')
     ativo = models.BooleanField(default=True)
@@ -32,8 +32,8 @@ class Compra(models.Model):
     descricao = models.TextField(blank=True, verbose_name='Descrição')
     
     cliente = ForeignKey(Cliente, on_delete=models.PROTECT)
-    produto = ForeignKey(Produto, on_delete=models.PROTECT)
+    produto = ForeignKey(Produto, on_delete=models.CASCADE)
 
     def __str__(self):
-        return self.descricao
+        return 'compra de ' + self.produto.nome
 
